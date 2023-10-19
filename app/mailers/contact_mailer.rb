@@ -1,8 +1,9 @@
 class ContactMailer < ApplicationMailer
-  def contact_email(name, email, message, attachment)
+  def contact_email(name, email, message, size, attachment)
     @name = name
     @email = email
     @message = message
+    @size = size
     
     if attachment.present?
       attachments[attachment.original_filename] = {
