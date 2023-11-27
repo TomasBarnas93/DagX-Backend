@@ -12,6 +12,6 @@ class ContactMailer < ApplicationMailer
       }
     end
     
-    mail(to: 'btomek506@gmail.com', subject: 'Contact Form Inquiry')
+    mail(to: 'dagx.art@gmail.com', subject: 'Kontakt z DagX.se')
   end
 end

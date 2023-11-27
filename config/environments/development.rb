@@ -71,11 +71,11 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => ENV['MAILTRAP_USERNAME'],
+    :user_name => api,
     :password => ENV['MAILTRAP_PASSWORD'],
-    :address => 'sandbox.smtp.mailtrap.io',
-    :host => 'sandbox.smtp.mailtrap.io',
-    :port => '2525',
+    :address => 'ive.smtp.mailtrap.io',
+    :host => 'ive.smtp.mailtrap.io',
+    :port => '587',
     :authentication => :cram_md5
   }
 
