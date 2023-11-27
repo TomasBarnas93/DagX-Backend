@@ -71,7 +71,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => api,
+    :user_name => 'api',
     :password => ENV['MAILTRAP_PASSWORD'],
     :address => 'ive.smtp.mailtrap.io',
     :host => 'ive.smtp.mailtrap.io',
