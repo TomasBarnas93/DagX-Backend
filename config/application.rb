@@ -32,7 +32,7 @@ module DagXBackend
     # Add the following block to configure rack-cors
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'dagx.se', 'api.dagx.se', 'https://dagx.se', 'http://dagx.se'
+        origins 'dagx.se', 'api.dagx.se', 'https://dagx.se', 'http://dagx.se', 'https://dagx-backend-ec91b044f633.herokuapp.com/'
         resource '*',
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head],
