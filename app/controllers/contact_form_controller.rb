@@ -1,5 +1,9 @@
 class ContactFormController < ApplicationController
 
+  def new
+    render json: { message: 'Formularz kontaktowy' }
+  end
+
   def create
     name = params[:name]
     email = params[:email]

@@ -10,4 +10,7 @@ Rails.application.routes.draw do
 
   # Resourceful route for handling contact form submissions
   resources :contact_form, only: [:create], controller: 'contact_form'
+
+  get 'contact_form', to: 'contact_form#new'
+
 end
