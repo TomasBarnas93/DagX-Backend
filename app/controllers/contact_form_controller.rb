@@ -1,9 +1,5 @@
 class ContactFormController < ApplicationController
 
-  def new
-    render json: { message: 'Formularz kontaktowy' }
-  end
-
   def create
     name = params[:name]
     email = params[:email]
@@ -11,8 +7,11 @@ class ContactFormController < ApplicationController
     size = params[:size]
     attachment = params[:attachment]
 
-    ContactMailer.contact_email(name, email, message, size, attachment).deliver_now
-
-    render json: { status: 'success' }
+    if attachment.respond_to?(:read)
+      ContactMailer.contact_email(name, email, message, size, attachment).deliver_now
+      render json: { status: 'success' }
+    else
+      render json: { status: 'error', message: 'Attachment is not a file' }, status: :unprocessable_entity
+    end
   end
 end
