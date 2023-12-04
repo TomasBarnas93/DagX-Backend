@@ -1,17 +1,22 @@
 class ContactFormController < ApplicationController
-
   def create
-    name = params[:name]
-    email = params[:email]
-    message = params[:message]
-    size = params[:size]
-    attachment = params[:attachment]
+    Rails.logger.debug "Received parameters: #{contact_params.inspect}"
 
-    if attachment.respond_to?(:read)
-      ContactMailer.contact_email(name, email, message, size, attachment).deliver_now
-      render json: { status: 'success' }
+    if params[:attachment].present? && params[:attachment].respond_to?(:read)
+      begin
+        ContactMailer.contact_email(contact_params).deliver_now
+        render json: { status: 'success' }
+      rescue => e
+        render json: { status: 'error', message: e.message }, status: :internal_server_error
+      end
     else
-      render json: { status: 'error', message: 'Attachment is not a file' }, status: :unprocessable_entity
+      render json: { status: 'error', message: 'Attachment is not a file or missing' }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def contact_params
+    params.permit(:name, :email, :message, :size, :attachment)
   end
 end

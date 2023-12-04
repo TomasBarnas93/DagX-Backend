@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   # root "posts#index"
 
   # Resourceful route for handling contact form submissions
-  resources :contact_form, only: [:create], controller: 'contact_form'
+  resources :contact_forms, only: [:create]
 
   get 'contact_form', to: 'contact_form#new'
 
