@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   resources :contact_forms, only: [:create]
 
   get 'contact_form', to: 'contact_form#new'
+  post 'contact_form', to: 'contact_form#create'
 
 end
