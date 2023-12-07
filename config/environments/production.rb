@@ -91,7 +91,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: 'api',
-    password: 'e8bf0b691e4d59a4f08eedcdfc7643a7',  
+    password: ENV['MAILTRAP_PASSWORD'],  
     address: 'smtp.mailtrap.io',
     port: '587',
     authentication: :login,
