@@ -94,7 +94,7 @@ Rails.application.configure do
     password: ENV['MAILTRAP_PASSWORD'],  
     address: 'smtp.mailtrap.io',
     port: '587',
-    authentication: :cram_md5,
+    authentication: :login,
     enable_starttls_auto: true
   }
   
