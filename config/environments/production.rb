@@ -90,12 +90,12 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    :user_name => 'api',
-    :password => ENV['MAILTRAP_PASSWORD'],
-    :address => 'live.smtp.mailtrap.io',
-    :host => 'live.smtp.mailtrap.io',
-    :port => '587',
-    :authentication => :cram_md5
+    user_name: 'api',
+    password: ENV['MAILTRAP_PASSWORD'],
+    address: 'live.smtp.mailtrap.io',
+    port: '587',
+    authentication: :login, 
+    enable_starttls_auto: true  
   }
   
 end
