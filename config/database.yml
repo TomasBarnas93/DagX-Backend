@@ -83,3 +83,4 @@ production:
   database: dag_x_backend_production
   username: dag_x_backend
   password: <%= ENV["DAG_X_BACKEND_DATABASE_PASSWORD"] %>
+  host: api.dagx.se
