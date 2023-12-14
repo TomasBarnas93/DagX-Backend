@@ -32,7 +32,7 @@ module DagXBackend
     # Add the following block to configure rack-cors
     config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins 'dagx.se', 'api.dagx.se', 'www.api.dagx.se', 'https://dagx.se', 'http://dagx.se', 'https://dagx-backend-d5lvy.ondigitalocean.app/', 'dagx-backend-d5lvy.ondigitalocean.app'
+        origins 'dagx.se', 'www.dagx.se'
         resource '*',
           headers: :any,
           methods: [:get, :post, :put, :patch, :delete, :options, :head],
