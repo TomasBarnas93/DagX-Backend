@@ -1,6 +1,9 @@
 require_relative "boot"
 
 require "rails/all"
+
+# Require the gems listed in Gemfile, including any gems
+# you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
 module DagXBackend
@@ -8,17 +11,25 @@ module DagXBackend
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
-    # Autoload paths optimization
-    config.autoload_paths -= %W(#{config.root}/lib/templates)
-    config.eager_load_paths -= %W(#{config.root}/lib/templates)
+    # Please, add to the `ignore` list any other `lib` subdirectories that do
+    # not contain `.rb` files, or that should not be reloaded or eager loaded.
+    # Common ones are `templates`, `generators`, or `middleware`, for example.
+    config.autoload_lib(ignore: %w(assets tasks))
 
-    # Since this is an API-only application, we skip loading unnecessary middleware.
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = "Central Time (US & Canada)"
+    # config.eager_load_paths << Rails.root.join("extras")
+
+    # Only loads a smaller set of middleware suitable for API only apps.
+    # Middleware like session, flash, cookies can be added back manually.
+    # Skip views, helpers, and assets when generating a new resource.
     config.api_only = true
 
-    # Explicitly require 'sprockets/railtie' to enable asset pipeline
-    require 'sprockets/railtie'
-
-    # Middleware configuration
+    # Add the following block to configure rack-cors
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'dagx.se', 'www.dagx.se'
@@ -27,30 +38,6 @@ module DagXBackend
           methods: [:get, :post, :put, :patch, :delete, :options, :head],
           credentials: true
       end
-    end
-
-    # Logger configuration
-    if Rails.env.production?
-      config.log_level = :warn
-    end
-
-    # Enable asset pipeline
-    config.assets.enabled = true
-
-    # Specify the path to your assets
-    config.assets.paths << Rails.root.join('app', 'assets')
-
-    # Precompile additional assets
-    config.assets.precompile += %w( *.js *.css )
-
-    # Disable unnecessary generators
-    config.generators do |g|
-      g.helper = false
-      g.assets = true
-      g.view_specs = false
-      g.helper_specs = false
-      g.routing_specs = false
-      g.controller_specs = false
     end
   end
 end
