@@ -1,30 +1,36 @@
-source "https://rubygems.org"
+require "active_support/core_ext/integer/time"
 
-ruby "3.2.2"
+Rails.application.configure do
+  # ... [inne ustawienia] ...
 
-# Core Rails gem
-gem "rails", "~> 7.1.0"
+  # Reduce logging to minimize disk I/O and save space.
+  config.log_level = :warn
 
-# PostgreSQL adapter
-gem "pg", "~> 1.1"
+  # Enable caching of Action Mailer views for better performance.
+  config.action_mailer.perform_caching = true
 
-# Puma as the app server
-gem "puma", ">= 5.0"
+  # Set fallback locale to something other than :false if you want missing translations to fall back.
+  config.i18n.fallbacks = [I18n.default_locale]
 
-# Speed up boot times by caching expensive operations
-gem "bootsnap", require: false
+  # Don't log deprecations to reduce log volume.
+  config.active_support.report_deprecations = false
 
-# Handle Cross-Origin Resource Sharing (CORS), if necessary
-gem 'rack-cors', require: 'rack/cors'
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+  # Configure Action Mailer for SMTP.
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    user_name: 'api',
+    password: ENV['MAILTRAP_PASSWORD'],
+    address: 'live.smtp.mailtrap.io',
+    port: '587',
+    authentication: :login, 
+    enable_starttls_auto: true  
+  }
+  
+  # Add your production domain here
+  config.hosts << "api.dagx.se"
 
-group :development, :test do
-  # Debugging tool
-  gem "debug", platforms: %i[ mri x64_mingw mingw ]
-end
-
-group :development do
-  # Load environment variables from .env file
-  gem 'dotenv-rails'
+  # Additional production-specific configurations can be added here
 end
