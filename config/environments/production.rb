@@ -18,7 +18,7 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   # Set to `true` if you have an SSL certificate.
-  config.force_ssl = ENV['RAILS_FORCE_SSL'].present?
+  config.force_ssl = false
 
   # Reduce logging to minimize disk I/O and save space.
   config.log_level = :warn
@@ -34,11 +34,6 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
-
-  # Use Uglifier for JavaScript compression.
-  config.assets.js_compressor = :uglifier
-  # Do not compile assets in production; use `rails assets:precompile`.
-  config.assets.compile = false
 
   # Configure Action Mailer for SMTP.
   config.action_mailer.delivery_method = :smtp
