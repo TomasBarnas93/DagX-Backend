@@ -213,6 +213,7 @@ DEPENDENCIES
   puma (>= 5.0)
   rack-cors
   rails (~> 7.1.0)
+  rake
   sprockets-rails
   tzinfo-data
 
