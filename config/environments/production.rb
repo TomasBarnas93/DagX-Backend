@@ -23,8 +23,8 @@ Rails.application.configure do
   # Reduce logging to minimize disk I/O and save space.
   config.log_level = :warn
 
-  # Disable caching of Action Mailer views.
-  config.action_mailer.perform_caching = false
+  # Enable caching of Action Mailer views for better performance.
+  config.action_mailer.perform_caching = true
 
   # Set fallback locale to something other than :false if you want missing translations to fall back.
   config.i18n.fallbacks = [I18n.default_locale]
@@ -40,6 +40,7 @@ Rails.application.configure do
   # Do not compile assets in production; use `rails assets:precompile`.
   config.assets.compile = false
 
+  # Configure Action Mailer for SMTP.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     user_name: 'api',
@@ -50,6 +51,8 @@ Rails.application.configure do
     enable_starttls_auto: true  
   }
   
+  # Add your production domain here
   config.hosts << "api.dagx.se"
 
+  # Additional production-specific configurations can be added here
 end
