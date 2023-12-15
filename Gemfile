@@ -18,6 +18,7 @@ gem "bootsnap", require: false
 gem 'rack-cors', require: 'rack/cors'
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'sprockets-rails'
 
 group :development, :test do
   # Debugging tool
