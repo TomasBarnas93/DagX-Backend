@@ -11,25 +11,18 @@ module DagXBackend
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 
-    # Please, add to the `ignore` list any other `lib` subdirectories that do
-    # not contain `.rb` files, or that should not be reloaded or eager loaded.
-    # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    # Autoload paths optimization
+    # Exclude directories that don't need to be autoloaded/eager loaded.
+    config.autoload_paths -= %W(#{config.root}/lib/templates)
+    config.eager_load_paths -= %W(#{config.root}/lib/templates)
 
-    # Configuration for the application, engines, and railties goes here.
-    #
-    # These settings can be overridden in specific environments using the files
-    # in config/environments, which are processed later.
-    #
-    # config.time_zone = "Central Time (US & Canada)"
-    # config.eager_load_paths << Rails.root.join("extras")
-
-    # Only loads a smaller set of middleware suitable for API only apps.
-    # Middleware like session, flash, cookies can be added back manually.
-    # Skip views, helpers, and assets when generating a new resource.
+    # API-only optimizations
+    # Since this is an API-only application, we skip loading unnecessary middleware.
     config.api_only = true
 
-    # Add the following block to configure rack-cors
+    # Middleware configuration
+    # Configure CORS for handling Cross-Origin Resource Sharing.
+    # Adjust the origins according to your frontend's domain.
     config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins 'dagx.se', 'www.dagx.se'
@@ -38,6 +31,23 @@ module DagXBackend
           methods: [:get, :post, :put, :patch, :delete, :options, :head],
           credentials: true
       end
+    end
+
+    # Logger configuration
+    # Configure the logger to a lower level in production to reduce disk I/O.
+    if Rails.env.production?
+      config.log_level = :warn
+    end
+
+    # Disable unnecessary generators
+    # This prevents generating unnecessary files like view specs, helper specs, etc.
+    config.generators do |g|
+      g.helper = false
+      g.assets = false
+      g.view_specs = false
+      g.helper_specs = false
+      g.routing_specs = false
+      g.controller_specs = false
     end
   end
 end
