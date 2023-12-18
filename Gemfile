@@ -21,4 +21,4 @@ end
 # gem 'action_text', require: false
 # gem 'action_cable', require: false
 # gem 'jbuilder', require: false
-# gem 'bootsnap', require: false
+gem 'bootsnap', require: false
