@@ -23,7 +23,7 @@ Rails.application.configure do
 
   config.i18n.fallbacks = true
   config.active_record.dump_schema_after_migration = false
-
+  config.assets.compile = true
 
   # Mailer configuration. Adjust as per your production email service.
   config.action_mailer.delivery_method = :smtp
