@@ -1,26 +1,21 @@
-# config/database.yml
 
 default: &default
   adapter: postgresql
   encoding: unicode
-  # ...
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %> # You might lower this if you have fewer threads.
+  username: postgres
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  pool: 5
   timeout: 5000
 
 development:
   <<: *default
   database: dag_x_backend_development
-  # ...
-
 test:
   <<: *default
   database: dag_x_backend_test
-  # ...
 
 production:
   <<: *default
   database: dag_x_backend_production
   username: dag_x_backend
   password: <%= ENV["DAG_X_BACKEND_DATABASE_PASSWORD"] %>
-  # Consider using ENV variable to set the pool size based on your server's capacity
-  pool: <%= ENV.fetch("DATABASE_POOL_SIZE", 5) %>

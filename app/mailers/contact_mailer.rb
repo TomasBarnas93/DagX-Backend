@@ -1,23 +1,23 @@
 class ContactMailer < ApplicationMailer
-  default to: 'dagx.art@gmail.com', subject: 'Kontakt z DagX.se'
-
   def contact_email(params)
-    @contact = OpenStruct.new(params)
+    @name = params[:name]
+    @email = params[:email]
+    @message = params[:message]
+    @size = params[:size]
 
-    attach_file(params[:attachment]) if params[:attachment].present?
+    begin
+      if params[:attachment].present?
+        attachment = params[:attachment]
+        attachments[attachment.original_filename] = {
+          mime_type: attachment.content_type,
+          content: attachment.read
+        }
+      end
+    rescue => e
+      Rails.logger.error "Error attaching file: #{e.message}"
+      # Handle the error according to your needs
+    end
 
-    mail
-  end
-
-  private
-
-  def attach_file(attachment)
-    attachments[attachment.original_filename] = {
-      mime_type: attachment.content_type,
-      content: attachment.read
-    }
-  rescue => e
-    Rails.logger.error "Error attaching file: #{e.message}"
-    # Consider whether you want to raise an error or just log it
+    mail(to: 'dagx.art@gmail.com', subject: 'Kontakt z DagX.se')
   end
 end
